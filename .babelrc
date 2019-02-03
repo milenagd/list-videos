@@ -10,9 +10,12 @@
           "components": "./src/components",
           "constants": "./src/constants",
           "icons": "./src/icons",
-          "styles": "./src/styles"
+          "styles": "./src/styles",
+          "integrations": "./src/integrations",
+          "services": "./src/services"
         }
       }
-    ]
+    ],
+    "@babel/plugin-proposal-class-properties"
   ]
 }

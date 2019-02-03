@@ -6,7 +6,7 @@ const PORT = 3030;
 module.exports = {
   mode: "development",
   devtool: "inline-source-map",
-  entry: path.join(__dirname, "/src/index.js"),
+  entry: ["@babel/polyfill", path.join(__dirname, "/src/index.js")],
   output: {
     path: path.join(__dirname, "../dist"),
     filename: "bundle.js",
@@ -25,6 +25,28 @@ module.exports = {
         }
       },
       {
+        test: /\.s?css$/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: true,
+              sourceMap: true,
+              localIdentName: "[local]__[hash:base64:5]"
+            }
+          },
+          "sass-loader",
+          {
+            loader: "sass-resources-loader",
+            options: {
+              // Or array of paths
+              resources: "./src/styles/*.scss"
+            }
+          }
+        ]
+      },
+      {
         test: /\.svg$/,
         use: [
           {
@@ -40,6 +62,12 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new webpack.EnvironmentPlugin({
+      YOUTUBE_URL: "https://www.googleapis.com/youtube/v3/",
+      YOUTUBE_TOKEN: "AIzaSyDdk3vRtPVGmnKjtIt_kLLzihCCTfXdkUk"
+    })
+  ],
   devServer: {
     hot: true,
     inline: true,
