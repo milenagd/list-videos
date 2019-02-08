@@ -1,0 +1,21 @@
+.wrapper {
+  border: 1px solid $violet;
+  height: 50px;
+  background: $violet;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wrapperLogo {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 30px;
+}
+
+.logoTitle {
+  margin-left: 10px;
+  margin-right: 10px;
+  color: $white;
+  font-weight: bold;
+}

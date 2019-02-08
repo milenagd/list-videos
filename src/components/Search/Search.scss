@@ -1,0 +1,22 @@
+.wrapper {
+  display: inline-flex;
+  height: 50%;
+  margin-right: 10px;
+  background: $light-violet;
+}
+
+.input {
+  box-shadow: 0px 0px 1px 1px$light-violet;
+  margin-left: 10px;
+  background: $light-violet;
+  border: 1px solid$light-violet;
+  color: $white;
+  &::placeholder {
+    color: $white;
+  }
+}
+
+.searchIcon {
+  fill: $white;
+  width: 15px;
+}
