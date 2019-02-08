@@ -5,12 +5,15 @@ import styles from "./NavBar.scss";
 import PlayIcon from "icons/play-logo.svg";
 
 const NavBar = ({ handleSearch }) => {
+  const handleClick = () => {
+    handleSearch();
+  };
   return (
     <div className={styles.wrapper}>
-      <span className={styles.wrapperLogo}>
+      <button className={styles.wrapperLogo} onClick={handleClick}>
         <PlayIcon />
         <span className={styles.logoTitle}>Fictícia Vídeos</span>
-      </span>
+      </button>
       <Search handleSearch={handleSearch} />
     </div>
   );
