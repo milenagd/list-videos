@@ -1,0 +1,21 @@
+.wrapper {
+  display: flex;
+}
+
+.title {
+  color: $violet;
+  font-size: 16px;
+  margin: 0 0 0 10px;
+  max-width: 200px;
+  overflow: hidden;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1em;
+  max-height: 3em;
+}
+
+.wrapperVideoInfo {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
