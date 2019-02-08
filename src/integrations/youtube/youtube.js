@@ -29,7 +29,6 @@ export const listVideos = async (channelId, nextPageToken = "", q = "") => {
   const url = `${YOUTUBE_URL}search?${queryString.stringify(params)}`;
   const response = await makeRequest(url);
 
-  console.log("\n\nSEARCH>>>>>>\n", response);
   return response;
 };
 

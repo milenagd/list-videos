@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Search from "../Search/Search";
+import SearchContainer from "../Search";
 import styles from "./NavBar.scss";
 import PlayIcon from "icons/play-logo.svg";
 
@@ -14,7 +14,7 @@ const NavBar = ({ handleSearch }) => {
         <PlayIcon />
         <span className={styles.logoTitle}>Fictícia Vídeos</span>
       </button>
-      <Search handleSearch={handleSearch} />
+      <SearchContainer handleSearch={handleSearch} />
     </div>
   );
 };
