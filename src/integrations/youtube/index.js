@@ -1,7 +1,7 @@
 import {
   getChannelId,
   listVideos,
-  getVideoInfo
+  getVideoStatistics
 } from "integrations/youtube/youtube";
 
-export { getChannelId, listVideos, getVideoInfo };
+export { getChannelId, listVideos, getVideoStatistics };

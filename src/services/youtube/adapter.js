@@ -5,27 +5,31 @@ export const channelAdapter = payload => {
   if (items.length > 0) {
     const mainItem = items[0];
     const channelId = get(mainItem, "id");
-    console.log("chanelId", channelId);
     return channelId;
   }
   return "";
 };
 
-export const videosIdAdapter = payload => {
+export const searchAdapter = payload => {
   const items = get(payload, "items", []);
-  return items.map(item => item.id.videoId);
+  const nextPageToken = get(payload, "nextPageToken", "");
+  const pageInfo = get(payload, "pageInfo");
+  const videos = items.map(item => {
+    const snippet = get(item, "snippet");
+    const info = {
+      id: get(item, "id.videoId"),
+      title: get(snippet, "title"),
+      description: get(snippet, "description"),
+      thumbnails: get(snippet, "thumbnails.default")
+    };
+    return info;
+  });
+  return { pageInfo, nextPageToken, videos };
 };
-
-export const videoInfoAdapter = payload => {
+export const videoStatisticsAdapter = payload => {
   const items = get(payload, "items");
   const item = items[0];
-  const snippet = get(item, "snippet");
   const statistics = get(item, "statistics");
-  return {
-    id: get(item, "id"),
-    title: get(snippet, "title"),
-    thumbnails: get(snippet, "thumbnails.default"),
-    description: get(snippet, "description"),
-    viewCount: get(statistics, "viewCount")
-  };
+
+  return get(statistics, "viewCount", 0);
 };

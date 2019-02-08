@@ -15,24 +15,27 @@ export const getChannelId = async channelName => {
   return response;
 };
 
-export const listVideos = async channelId => {
+export const listVideos = async (channelId, nextPageToken = "", q = "") => {
   const params = {
-    part: "id",
-    type: "video",
-    order: "date",
+    part: "id,snippet",
+    channelId: channelId,
     maxResults: 12,
+    order: "date",
+    type: "video",
     key: YOUTUBE_TOKEN,
-    channelId
+    pageToken: nextPageToken,
+    q: q
   };
   const url = `${YOUTUBE_URL}search?${queryString.stringify(params)}`;
   const response = await makeRequest(url);
 
+  console.log("\n\nSEARCH>>>>>>\n", response);
   return response;
 };
 
-export const getVideoInfo = async videoId => {
+export const getVideoStatistics = async videoId => {
   const params = {
-    part: "snippet,statistics",
+    part: "statistics",
     id: videoId,
     key: YOUTUBE_TOKEN
   };

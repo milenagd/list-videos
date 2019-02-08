@@ -1,23 +1,41 @@
-import { getChannelId, listVideos, getVideoInfo } from "integrations/youtube";
-import { channelAdapter, videosIdAdapter, videoInfoAdapter } from "./adapter";
+import {
+  getChannelId,
+  listVideos,
+  getVideoStatistics
+} from "integrations/youtube";
+import {
+  channelAdapter,
+  searchAdapter,
+  videoStatisticsAdapter
+} from "./adapter";
 
-export const getListVideoInfo = async () => {
+export const getChannel = async () => {
   try {
-    const channelId = await getChannelId("portadosfundos");
-    const parsedChannelId = channelAdapter(channelId);
+    if (!localStorage.getItem("channelId")) {
+      const channelId = await getChannelId("vagastecnologia");
+      const parsedChannelId = channelAdapter(channelId);
+      localStorage.setItem("channelId", parsedChannelId);
+      return parsedChannelId;
+    }
+    return localStorage.getItem("channelId");
+  } catch (error) {}
+};
 
-    const videosIds = await listVideos(parsedChannelId);
-    const parsedVideosIds = videosIdAdapter(videosIds);
+export const searchVideos = async (query = "") => {
+  try {
+    const channel = await getChannel();
+    const nextPageToken = localStorage.getItem("next") || "";
+    const resultVideos = await listVideos(channel, nextPageToken, query);
+    const parsedResult = searchAdapter(resultVideos);
+    localStorage.setItem("next", parsedResult.nextPageToken);
+    return parsedResult;
+  } catch (error) {}
+};
 
-    const videoInfo = parsedVideosIds.map(async videoId => {
-      const res = await getVideoInfo(videoId);
-      return videoInfoAdapter(res);
-    });
-
-    const resolvedVideoInfo = await Promise.all(videoInfo);
-    console.log(resolvedVideoInfo);
-    return resolvedVideoInfo;
-  } catch (error) {
-    console.log("Error: It was not possible to get video list", error);
-  }
+export const getStatistics = async videoId => {
+  try {
+    const response = await getVideoStatistics(videoId);
+    const parsedResponse = videoStatisticsAdapter(response);
+    return parsedResponse;
+  } catch (error) {}
 };
